@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>demo-4</title>
+    <meta name="description" content="Your description.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Your title">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/favicon.ico">    
+    <!-- build:css css/docs.css -->
+    <!-- endbuild -->
+  </head>
+
+  <body>
+
+    <main ng-init="sex='男'">
+      <div ng-controller="secondController">
+        {{person[0].name}}
+        {{person[0].age}}
+        {{person[1].name}}
+        {{person[1].age}}
+        <ul>
+          <li ng-repeat="p in person">
+          {{p.name}}
+          {{p.age}}
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- build:js js/docs.js -->
+    <script src="../js/angular.min.js"></script>
+    <script>
+    var app = angular.module('myApp',[]);
+      app.controller('secondController',function($scope,$http){
+        $scope.person = [{name:'jekyll',age:'25'},{name:'sublime',age:'4'}];
+        // $http.get('http://www.w3cschool.cc/try/angularjs/data/Customers_JSON.php')
+        // .success(function(data,status,headers,config){
+        //   console.log(data);
+        //   console.log(status);
+        //   console.log(headers);
+        //   console.log(config);
+        // })
+        // .error(function(err,status,headers,config){
+        //   console.log(err);
+        //   console.log(status);
+        //   console.log(headers);
+        //   console.log(config);
+        // });
+
+        // var postData = {text:'test'};
+        // var config = {params:{id:'5'}};
+        // $http.post('data1.php',postData)
+        // .success(function(data){
+        //   console.log(data);
+        // })
+        // .error(function(err){
+        //   console.log(err)
+        // });
+
+         $http.jsonp('http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=2&callback=JSON_CALLBACK').success(function(data){
+          console.log(data);
+        }).error(function(err){
+          console.log(err)
+        });
+      });
+
+     
+
+
+
+      // function firstController ($scope) {
+      //   $scope.test.title = "angular js controller";
+      // }
+    </script>
+    <!-- endbuild -->
+  </body>
+</html>

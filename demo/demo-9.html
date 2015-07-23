@@ -1,0 +1,119 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>demo-9</title>
+    <meta name="description" content="Your description.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Your title">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/favicon.ico">    
+    <!-- build:css css/docs.css -->
+    <!-- endbuild -->
+  </head>
+
+  <body>
+
+    <div ng-controller="clickClick">
+      //div只支持单向？ng-model改变，本身内容不变！什么原因？？
+      <div  ng-bind="data">
+        点我
+      </div>
+      <input type="text" ng-click="run()" ng-model="data" ng-value="data">
+    </div>
+
+    <div>
+      <input type="checkbox" ng-model="checked">
+      <select>
+        <option >你</option>
+        <option ng-selected="checked">我</option>
+      </select>
+    </div>
+
+    <div ng-controller="change">
+      <input type="checkbox" ng-change="change()" ng-model="ifchg">
+    </div>
+
+    <div ng-controller="copyCutParse">
+      <input type="text" ng-copy="copy()" ng-model="copyData" >
+      <input type="text" ng-cut="cut()" ng-model="cutData" >
+      <input type="text" ng-paste="paste()" ng-model="pasteData" >
+    </div>
+
+    <div ng-controller="ngtest">
+      <div ng-cloak>{{me}}</div>
+      {{me}}
+      <div ng-bind="me"></div>
+      <div ng-non-bindable>{{me}}</div>
+    </div>
+
+    <div ng-controller="inputDer">
+      <input type="button" ng-value="text" ng-disabled="isDisabled">
+      <input type="text" value="{{text}}" ng-readonly="isDisabled">
+      <input type="checkbox" value="{{text}}" ng-checked="isDisabled">
+    </div>
+    <!-- build:js js/docs.js -->
+    <script src="../js/jquery.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/model.js"></script>
+    <script>
+      var app = angular.module('myApp',[]);
+      app.controller('clickClick',['$scope',function($scope){
+        $scope.data = "点我";
+        $scope.run = function(){
+          $scope.data = "再点我";
+          alert($scope.data);
+        }
+      }]);
+
+      app.controller('change',['$scope',function($scope){
+        $scope.change = function(){
+          $scope.ifchg ? alert("change"):alert("no changes");
+        }
+      }]);
+
+      app.controller('copyCutParse',['$scope',function($scope){
+        $scope.copyData = "复制";
+        $scope.cutData = "剪切";
+        $scope.pasteData = "粘贴";
+        $scope.copy = function(){
+          $scope.copyData = "复制事件触发";
+        }
+        $scope.cut = function(){
+          $scope.cutData = "剪切事件触发";
+        }
+        $scope.paste = function(){
+          $scope.pasteData = "粘贴事件触发";
+          // alert($scope.pasteData);
+        }
+      }]);
+
+      app.controller('ngtest',['$scope',function($scope){
+        $scope.me = "我";
+      }]);
+
+      app.controller('inputDer',['$scope','$interval',function($scope,$interval){
+        var now = 5;
+        $scope.text = now + "秒";
+        $scope.isDisabled = true;
+        var timer = $interval(function(){
+          now --;
+          $scope.text = now + "秒";
+          // (now == 0) && ($interval.cancel(timer);$scope.text="可以点击了";$scope.isDisabled = false;);
+          if(now == 0){
+            $interval.cancel(timer);$scope.text="可以点击了";$scope.isDisabled = false;
+          }
+        },1000);
+      }]);
+
+
+
+
+
+    </script>
+    <!-- endbuild -->
+  </body>
+</html>

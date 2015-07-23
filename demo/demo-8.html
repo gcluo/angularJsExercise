@@ -1,0 +1,93 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>demo-8</title>
+    <meta name="description" content="Your description.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Your title">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/favicon.ico">    
+    <!-- build:css css/docs.css -->
+    <!-- endbuild -->
+  </head>
+
+  <body>
+
+    <div ng-controller='firstController'>
+      {{name}}{{age}}
+    </div>
+
+    <div ng-app='myapp2' ng-controller='secondController'>
+      {{name}}
+    </div>
+
+    <div id="jq">
+      
+    </div>
+
+    <div id="div1" ng-controller="threeController">{{name}}</div>
+    <div id="div2" ng-controller="thirdController">{{name}}</div>
+
+    <!-- build:js js/docs.js -->
+    <script src="../js/jquery.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/model.js"></script>
+    <script>
+        // angular.isArray();
+        // angular.isDate();
+        // angular.isDefined();
+        // angular.isUndefined();
+        // angular.isElement();
+        // angular.isFunction();
+        // angular.isNumber();
+        // angular.isObject();
+        // angular.isString();
+
+
+        // angular.uppercase();
+        // angular.lowercase();
+        // angular.equals(o1, o2);
+        // angular.extend(dst, src);
+        // angular.fromJson(json);
+        // angular.toJson(obj, pretty);
+        // angular.copy(source, [destination]);
+
+        // angular.forEach();
+        // var values = {name: 'misko', gender: 'male'};
+        // var log = [];
+        // angular.forEach(values, function(value, key) {
+        //   this.push(key + ': ' + value);
+        // }, log);
+        // expect(log).toEqual(['name: misko', 'gender: male']);
+
+        // angular.bind(self, fn, args);
+
+        // angular.bootstrap();
+      var app = angular.module('myApp',['myApp2']);
+      app.controller('firstController',['$scope',function  ($scope) {
+        $scope.name = 'app1';
+        $('#jq').html("hello");
+      }]);
+      
+      var div1 = document.getElementById('div1');
+      var div2 = document.getElementById('div2');
+      var app3 = angular.module('myApp3',[]);
+      var app4 = angular.module('myApp4',[]);
+      app3.controller('threeController',["$scope",function($scope){
+        $scope.name="sos";
+      }]);
+      app4.controller('thirdController',["$scope",function($scope){
+        $scope.name="sis";
+      }]);
+      document.onclick = function(){
+        angular.bootstrap(div1,['myApp3']);
+        angular.bootstrap(div2,['myApp4']);
+      }
+    </script>
+    <!-- endbuild -->
+  </body>
+</html>

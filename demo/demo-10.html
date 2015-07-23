@@ -1,0 +1,126 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>demo-10</title>
+    <meta name="description" content="Your description.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Your title">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/favicon.ico">    
+    <!-- build:css css/docs.css -->
+    <!-- endbuild -->
+    <style>
+      .red{
+        background-color: red;
+        color:blue;
+      }
+      .yellow{
+        background-color: yellow;
+      }
+    </style>
+  </head>
+
+  <body>
+    
+    <div ng-controller="firstController">
+      <div ng-class="{red:flag,yellow:!flag}">hello</div>
+      <div ng-style="{{red}}">world</div>
+      <a href="{{url}}">百度</a>
+      <a ng-href="{{url}}">百度</a>
+<!--       <img src="{{s}}" alt="">
+      <img ng-src="{{s}}" alt=""> -->
+      <a href="{{url}}" ng-attr-title="{{url}}">title</a>
+    </div>
+
+    <div ng-controller="secondController">
+      <div ng-show="flag">显示</div>
+      <div ng-if="!flag">不显示</div>
+      <input type="button" value="点击我" ng-click="show()">
+      <div ng-switch on="bBtn"> 
+        <p ng-switch-default>默认的效果</p>
+        <p ng-switch-when="2">切换的效果2</p>
+        <p ng-switch-when="1">切换的效果1</p>
+      </div>
+      <input type="button" value="点击我" ng-click="ck()">
+    </div>
+
+    <div ng-controller="thirdController">
+      <div ng-bind="text"></div>
+      <div ng-bind-template="{{text}}{{text}}"></div>
+      <div ng-bind-html="h2()"></div>
+    </div>
+
+    <div ng-controller="fourController">
+      <div ng-repeat="innerList in list" ng-init="outerIndex = $index">
+        <div ng-repeat="value in innerList" ng-init="innerIndex = $index">
+          <span class="example-init">list[ {{outerIndex}} ][ {{innerIndex}} ] = {{value}};</span>
+       </div>
+     </div>
+     <input type="text" ng-model="name" ng-model-options="{updateOn:'blur'}">
+     {{name}}
+   </div>
+
+   <div ng-controller="fiveController">
+    <script type="text/ng-template" id="tmp1">
+      <h1>  dghsdhga</h1>
+    </script>
+    <script type="text/ng-template" id="tmp2">
+      dsgahffjh
+    </script>
+     <!-- <div ng-include="url"></div> -->
+     <div ng-include="tmp1"></div>
+     <div ng-include src="tmp2"></div>
+   </div>
+    <!-- build:js js/docs.js -->
+
+    <script src="../js/angular.min.js"></script>
+    <script>
+
+      var app = angular.module('myApp',[]);
+      app.controller('firstController',["$scope",function($scope){
+        $scope.flag = true;
+        $scope.red = "{color:'red'}";
+        $scope.url = "http://www.baidu.com";
+        $scope.s = "http://www.baidu.com/imgs/11.jpg";
+      }]);
+
+      app.controller('secondController',["$scope",function($scope){
+        $scope.flag = true;
+        $scope.show = function(){
+          $scope.flag = !$scope.flag;
+        }
+        $scope.ck = function(){
+          $scope.bBtn = Math.ceil(Math.random()*2);
+        }
+
+      }]);
+
+      app.controller('thirdController',["$scope","$sce",function($scope,$sce){
+        $scope.text = "多次绑定";
+        $scope.h2 = function(){
+          return $sce.trustAsHtml("<h2>i am h2!thank you!</h2>")
+        }
+      }]);
+
+      app.controller('fourController',["$scope",function($scope){
+        $scope.list = [['a', 'b'], ['c', 'd']];
+      }]);
+
+      app.controller('fiveController',["$scope",function($scope){
+        // $scope.url = "demo-9.html";
+        $scope.tmp1 = "tmp1";
+        $scope.tmp2 = "tmp2";
+      }]);
+
+
+
+
+
+    </script>
+    <!-- endbuild -->
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>demo-3</title>
+    <meta name="description" content="Your description.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Your title">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/favicon.ico">    
+    <!-- build:css css/docs.css -->
+    <!-- endbuild -->
+  </head>
+
+  <body>
+
+    <main ng-init="sex='男'">
+      <p>在输入框中输入：</p>
+      <input type="text" ng-model="name">
+      <div ng-bind="name"></div>
+
+      <div ng-controller="firstController">
+        <div ng-bind="title"></div>
+      </div>
+
+      <div ng-controller="secondController">
+        {{person[0].name}}
+        {{person[0].age}}
+        {{person[1].name}}
+        {{person[1].age}}
+        <ul>
+          <li ng-repeat="p in person">
+          {{p.name}}
+          {{p.age}}
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- build:js js/docs.js -->
+    <script src="../js/angular.min.js"></script>
+    <script>
+      var app = angular.module('myApp',[]);
+      app.controller('firstController',function($scope){
+        $scope.title = "angular js controller";
+      });
+      app.controller('secondController',function($scope){
+        $scope.person = [{name:'jekyll',age:'25'},{name:'sublime',age:'4'}];
+      });
+      // function firstController ($scope) {
+      //   $scope.test.title = "angular js controller";
+      // }
+    </script>
+    <!-- endbuild -->
+  </body>
+</html>
